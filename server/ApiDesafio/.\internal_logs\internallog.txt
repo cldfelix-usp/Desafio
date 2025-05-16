@@ -7148,3 +7148,21 @@
 2025-05-15 21:13:52.2663 Trace FileTarget(Name=logfile) has 2 layouts
 2025-05-15 21:13:52.2663 Trace FileTarget(Name=logfile): Using appenderFactory: NLog.Internal.FileAppenders.SingleProcessFileAppender+Factory
 2025-05-15 21:13:52.2676 Info Configuration initialized.
+2025-05-15 23:08:43.6398 Info AppDomain Shutting down. LogFactory closing...
+2025-05-15 23:08:43.6436 Debug Stopping file watching for path '/home/fcadi/Documentos/repos/Desafio/server/ApiDesafio' filter 'nlog.config'
+2025-05-15 23:08:43.6447 Debug Closing logging configuration...
+2025-05-15 23:08:43.6447 Trace Closing FileTarget(Name=logfile)
+2025-05-15 23:08:43.6455 Debug FileTarget(Name=logfile): Closing...
+2025-05-15 23:08:43.6474 Debug FileTarget(Name=logfile): Closed.
+2025-05-15 23:08:43.6474 Trace Closing .\logs\${shortdate}_logfile.txt
+2025-05-15 23:08:43.6486 Trace Closing Layout Renderer: ${literal}
+2025-05-15 23:08:43.6486 Trace Closing Layout Renderer: ${shortdate}
+2025-05-15 23:08:43.6486 Trace Closing Layout Renderer: ${literal}
+2025-05-15 23:08:43.6486 Trace Closing ${longdate} ${level:uppercase=true} ${message}
+2025-05-15 23:08:43.6486 Trace Closing Layout Renderer: ${longdate}
+2025-05-15 23:08:43.6486 Trace Closing Layout Renderer: ${literal}
+2025-05-15 23:08:43.6493 Trace Closing Layout Renderer: ${level}
+2025-05-15 23:08:43.6493 Trace Closing Layout Renderer: ${literal}
+2025-05-15 23:08:43.6493 Trace Closing Layout Renderer: ${message}
+2025-05-15 23:08:43.6493 Debug Finished closing logging configuration.
+2025-05-15 23:08:43.6493 Info LogFactory has been closed.
