@@ -1,25 +1,21 @@
 version: '3.8'
 
 services:
-  api:
-    build:
-      context: .
-      dockerfile: server.Dockerfile
-    container_name: apidesafio
-    ports:
-      - "5000:80"
-      - "5001:443"
-    environment:
-      - ASPNETCORE_ENVIRONMENT=Production
-      - ASPNETCORE_URLS=http://+:80;https://+:443
-    volumes:
-      - ${APPDATA}/Microsoft/UserSecrets:/root/.microsoft/usersecrets:ro
-      - ${APPDATA}/ASP.NET/Https:/root/.aspnet/https:ro
-    networks:
-      - app-network
-    restart: unless-stopped
+  api-desafio:
+     image: apidesafio:runtime
+     build:
+       context: .
+       dockerfile: server.Dockerfile
+     ports:
+       - "8080:5000"
+       - "8081:5001"
+     environment:
+       - ASPNETCORE_Kestrel__Certificates__Default__Password=awesomepass
+       - ASPNETCORE_Kestrel__Certificates__Default__Path=/https/companyemployees.pfx
 
-  client:
+  
+
+  client-desafio:
     build:
       context: .
       dockerfile: client.Dockerfile
@@ -27,7 +23,7 @@ services:
     ports:
       - "4200:80"
     depends_on:
-      - api
+      - api-desafio
     networks:
       - app-network
     restart: unless-stopped
