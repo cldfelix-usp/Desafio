@@ -1,0 +1,148 @@
+
+<!-- {{tituloForm.value | json}} -->
+<div class="content-container">
+  <mat-card>
+    <mat-card-header>
+      <mat-card-title>Novo Título Devedor</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <form [formGroup]="tituloForm" (ngSubmit)="onSubmit()">
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Número do Título</mat-label>
+            <input matInput formControlName="numeroTitulo" placeholder="Digite o número do título">
+            <mat-error *ngIf="tituloForm.get('numeroTitulo')?.hasError('required')">
+              Número do título é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>Nome do Devedor</mat-label>
+            <input matInput formControlName="nomeDevedor" placeholder="Digite o nome do devedor">
+            <mat-error *ngIf="tituloForm.get('nomeDevedor')?.hasError('required')">
+              Nome do devedor é obrigatório
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row">
+          <mat-form-field appearance="outline">
+            <mat-label>CPF do Devedor</mat-label>
+            <input matInput formControlName="cpfDevedor" placeholder="Digite o CPF do devedor (apenas números)">
+            <mat-error *ngIf="tituloForm.get('cpfDevedor')?.hasError('required')">
+              CPF do devedor é obrigatório
+            </mat-error>
+            <mat-error *ngIf="tituloForm.get('cpfDevedor')?.hasError('pattern')">
+              CPF deve conter 11 dígitos numéricos
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="form-row two-columns">
+          <mat-form-field appearance="outline">
+            <mat-label>Percentual de Juros</mat-label>
+            <input matInput type="number" step="0.01" formControlName="percentualJuros" placeholder="Ex: 2.5">
+            <span matSuffix>%</span>
+            <mat-error *ngIf="tituloForm.get('percentualJuros')?.hasError('required')">
+              Percentual de juros é obrigatório
+            </mat-error>
+            <mat-error *ngIf="tituloForm.get('percentualJuros')?.hasError('min')">
+              Percentual de juros deve ser maior ou igual a zero
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline">
+            <mat-label>Percentual de Multa</mat-label>
+            <input matInput type="number" step="0.01" formControlName="percentualMulta" placeholder="Ex: 3.5">
+            <span matSuffix>%</span>
+            <mat-error *ngIf="tituloForm.get('percentualMulta')?.hasError('required')">
+              Percentual de multa é obrigatório
+            </mat-error>
+            <mat-error *ngIf="tituloForm.get('percentualMulta')?.hasError('min')">
+              Percentual de multa deve ser maior ou igual a zero
+            </mat-error>
+          </mat-form-field>
+        </div>
+
+        <div class="parcelas-section">
+          <h3>Parcelas em Atraso</h3>
+          <div formArrayName="parcelasEmAtraso">
+            <div *ngFor="let parcela of parcelasFormArray.controls; let i = index" [formGroupName]="i" class="parcela-item">
+              <mat-divider *ngIf="i > 0" class="parcela-divider"></mat-divider>
+              <div class="parcela-header">
+                <h4>Parcela {{i + 1}}</h4>
+                <button type="button" mat-icon-button color="warn" (click)="removerParcela(i)"
+                        [disabled]="parcelasFormArray.length === 1">
+                  <mat-icon>delete</mat-icon>
+                </button>
+              </div>
+
+              <div class="form-row two-columns">
+                <mat-form-field appearance="outline">
+                  <mat-label>Número da Parcela</mat-label>
+                  <input matInput type="number" formControlName="parcelasDivida" placeholder="Ex: 3">
+                  <mat-error *ngIf="parcela.get('parcelasDivida')?.hasError('required')">
+                    Número da parcela é obrigatório
+                  </mat-error>
+                  <mat-error *ngIf="parcela.get('parcelasDivida')?.hasError('min')">
+                    Número da parcela deve ser maior que zero
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Total de Parcelas</mat-label>
+                  <input matInput type="number" formControlName="qtdParcelas" placeholder="Ex: 12">
+                  <mat-error *ngIf="parcela.get('qtdParcelas')?.hasError('required')">
+                    Total de parcelas é obrigatório
+                  </mat-error>
+                  <mat-error *ngIf="parcela.get('qtdParcelas')?.hasError('min')">
+                    Total de parcelas deve ser maior que zero
+                  </mat-error>
+                </mat-form-field>
+              </div>
+
+              <div class="form-row two-columns">
+                <mat-form-field appearance="outline">
+                  <mat-label>Data de Vencimento</mat-label>
+                  <input matInput [matDatepicker]="picker" formControlName="dataVencimento">
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                  <mat-error *ngIf="parcela.get('dataVencimento')?.hasError('required')">
+                    Data de vencimento é obrigatória
+                  </mat-error>
+                </mat-form-field>
+
+                <mat-form-field appearance="outline">
+                  <mat-label>Valor da Parcela</mat-label>
+                  <input matInput type="number" step="0.01" formControlName="valorParcela" placeholder="Ex: 100.00">
+                  <span matPrefix>R$&nbsp;</span>
+                  <mat-error *ngIf="parcela.get('valorParcela')?.hasError('required')">
+                    Valor da parcela é obrigatório
+                  </mat-error>
+                  <mat-error *ngIf="parcela.get('valorParcela')?.hasError('min')">
+                    Valor da parcela deve ser maior que zero
+                  </mat-error>
+                </mat-form-field>
+              </div>
+            </div>
+          </div>
+
+          <div class="add-parcela">
+            <button type="button" mat-stroked-button color="primary" (click)="adicionarParcela()">
+              <mat-icon>add</mat-icon> Adicionar Parcela
+            </button>
+          </div>
+        </div>
+
+        <div class="form-actions">
+          <button type="button" mat-stroked-button (click)="cancelar()">Cancelar</button>
+          <button type="submit" mat-raised-button color="primary" [disabled]="isSubmitting">
+            <mat-icon>save</mat-icon> Salvar
+          </button>
+        </div>
+      </form>
+    </mat-card-content>
+  </mat-card>
+</div>

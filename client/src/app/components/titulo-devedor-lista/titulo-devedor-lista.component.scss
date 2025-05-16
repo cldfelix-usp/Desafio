@@ -1,0 +1,33 @@
+.content-container {
+  margin: 20px 0;
+}
+
+.filter-container {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.spacer {
+  flex: 1 1 auto;
+}
+
+.mat-form-field {
+  width: 300px;
+}
+
+table {
+  width: 100%;
+}
+
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+}
+
+.mat-header-cell {
+  font-weight: bold;
+  font-size: 14px;
+}
